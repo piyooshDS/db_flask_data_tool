@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!-- <script>window.jQuery || document.write('<script src="{ url_for('static', filename='jquery.js') }}">\x3C/script>')</script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/dt-1.11.5/b-2.2.2/b-html5-2.2.2/datatables.min.css" />
+
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/dt/dt-1.11.5/b-2.2.2/b-html5-2.2.2/datatables.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-html5-2.2.2/b-print-2.2.2/r-2.2.9/datatables.min.css" />
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-html5-2.2.2/b-print-2.2.2/r-2.2.9/datatables.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Few Queries</h2>
+
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default" id="div1">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Selection Query using order by </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body">Order by isused to sort the table based on specific column in ascending or descending order.
+            select id,player_api_id,Player_name,height from player order by player_api_id desc;
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value =  "select id,player_api_id,Player_name,height from player order by height desc;"  name="comp_query" />
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse1t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Selection Query using join</a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">Joining two table using join 
+            Select distinct(player.id),player.player_name,player_attributes.player_api_id,player.player_fifa_api_id,
+            player_attributes.defensive_work_rate from player join player_attributes on player.player_fifa_api_id = player_attributes.player_fifa_api_id;
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value = "Select distinct(player.id),player.player_name,player_attributes.player_api_id,player.player_fifa_api_id,player_attributes.defensive_work_rate from player join player_attributes on player.player_fifa_api_id = player_attributes.player_fifa_api_id;" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse2t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Selection Query using group by</a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">groups values in the table based upon specific column
+            select buildupplayspeedclass,count(buildupplayspeedclass) as team_number from team_attributes group by buildupplayspeedclass;
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value = "select buildupplayspeedclass,count(buildupplayspeedclass) as team_number from team_attributes group by buildupplayspeedclass;" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse3t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Selection Query using group by,having and order by</a>
+          </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+          <div class="panel-body">
+            select buildupplayspeed,count(buildupplayspeed) as team_number from team_attributes group by buildupplayspeed having avg(team_attributes.buildupplayspeed)>55 order by buildupplayspeed desc;
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value =  "select buildupplayspeed,count(buildupplayspeed) as team_number from team_attributes group by buildupplayspeed having avg(team_attributes.buildupplayspeed)>55 order by buildupplayspeed desc;" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse4t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Insertion Query</a>
+          </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse">
+          <div class="panel-body">Insertion of specific values into rows in the order of their column data types
+            Use a select query to check if the details are inserted
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value = "insert into player (id,player_api_id,player_name,player_fifa_api_id,birthday,height,weight) 
+              values((select count(id) from player)+1,(select max(player_api_id) from player)+1, 'naresh pochaveni', (select max(player_fifa_api_id) from player)+1,
+              1994-02-2,(select avg(height) from player)+1,(select avg(weight) from player)+1);"  name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px ; margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse5t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Deletion Query</a>
+          </h4>
+        </div>
+        <div id="collapse6" class="panel-collapse collapse">
+          <div class="panel-body">Delete Query is used to delete specific rows in the table
+            use select statement to check where deletion has been performed
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value = "delete from player where player_api_id = 12345678;" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse6t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Updation Query</a>
+          </h4>
+        </div>
+        <div id="collapse7" class="panel-collapse collapse">
+          <div class="panel-body">Update query to update values of any specific columns of a table
+            use select statement to check where update has been performed
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value = "update team set team_long_name = 'Indian Titans', team_api_id = 7972, team_short_name = 'INTI' where id = 4;" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse7t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Alteration Query</a>
+          </h4>
+        </div>
+        <div id="collapse8" class="panel-collapse collapse">
+          <div class="panel-body">Alter query can drop columns or modify column types and also add constraints.
+            use select statement to check where alter has been performed to add  or drop columns.
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-auto">
+              <input style="margin: auto;" type="text" value ="alter table team drop column team_short_name" name="comp_query">
+              <button class="btn btn-primary btn-xs" type="submit">Run</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <div class="row" style="margin: auto;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 mx-auto">
+              <table id="collapse8t" class="table"></table>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('button').forEach(button => {
+      button.onclick = () => {
+        var btn_div_node = button.parentNode;
+        var query_txt = btn_div_node.firstChild.nextSibling.value;
+        const request = new XMLHttpRequest();
+        request.open('POST', `/run_query`);
+        request.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+        request.send(JSON.stringify({ query: query_txt }))
+        request.onload = () => {
+          var response = request.responseText;
+          response = JSON.parse(response);
+          console.log(response);
+          if ('error' in response) {
+
+            alert(response.error);
+
+          }
+          else {
+
+            $.myjQuery(response, button);
+          }
+        };
+      };
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+
+    $.myjQuery = function (data, button) {
+      // if($('#query1').length){
+      //       alert("The element you're testing is present.");
+      //   }
+      var div_id = button.parentNode.parentNode.parentNode.id;
+      // $('#query1').empty();
+      // alert(data.result);
+      var dt_columns = []
+      for (i = 0; i < data.columns.length; i++) {
+        dt_columns.push({ 'title': data.columns[i] })
+      }
+      table_id = '#' + div_id + 't';
+      console.log(table_id);
+      // if($(table_id).length){
+      //       alert("The element you're testing is present.");
+      //   }
+      // alert($("#table_id tr").length);
+      // $(table_id).DataTable().destroy();
+      $(table_id).DataTable({
+        data: data.result,
+        columns: dt_columns,
+        dom: 'Bfrtip',
+        buttons: [
+          'print',
+          'copy',
+          'pdf',
+          {
+            extend: 'spacer',
+            style: 'bar'
+          },
+
+          {
+            extend: 'excelHtml5',
+            text: 'Export to Excel',
+            title: 'data',
+            download: 'open',
+            orientation: 'landscape',
+            exportOptions: {
+              columns: ':visible'
+            },
+
+          }
+
+        ]
+      });
+      $(table_id).parent().css('margin-top', '20px');
+      // $(table_id).addClass('stripe');
+      $(table_id).addClass('hover');
+      $(table_id).buttons().container()
+        .appendTo($('.col-sm-6:eq(0)', $(table_id).table().container()));
+    };
+  });
+// </script>
+
+</html>
